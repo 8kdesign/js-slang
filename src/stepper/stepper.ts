@@ -1503,7 +1503,7 @@ function reduceMain(
       if (
         !(isAllowedLiterals(node) || isBuiltinFunction(node) || isImportedFunction(node, context))
       ) {
-        throw new errors.UndefinedVariable(node.name, node)
+        throw new errors.UndefinedVariable(node.name + '8K10', node)
       } else {
         return [node, context, paths, 'identifier']
       }
@@ -1693,7 +1693,7 @@ function reduceMain(
         callee.type === 'Identifier' &&
         !(callee.name in context.runtime.environments[0].head)
       ) {
-        throw new errors.UndefinedVariable(callee.name, callee)
+        throw new errors.UndefinedVariable(callee.name + '8K11', callee)
       } else {
         // callee is builtin or funexp
         if (
@@ -1723,7 +1723,7 @@ function reduceMain(
               currentArg.type === 'Identifier' &&
               !(currentArg.name in context.runtime.environments[0].head)
             ) {
-              throw new errors.UndefinedVariable(currentArg.name, currentArg)
+              throw new errors.UndefinedVariable(currentArg.name + '8K12', currentArg)
             }
           }
         }
@@ -3326,7 +3326,7 @@ function checkForUndefinedVariables(program: es.Program, context: Context) {
     }
     const isNativeId = nativeInternalNames.has(name)
     if (!isNativeId) {
-      throw new errors.UndefinedVariable(name, identifier)
+      throw new errors.UndefinedVariable(name + '8K13', identifier)
     }
   }
 }

@@ -95,6 +95,7 @@ export async function fullJSRunner(
       value: await fullJSEval(transpiled, requireProvider, context.nativeStorage)
     }
   } catch (error) {
+    console.log('Error Source 1')
     context.errors.push(
       error instanceof RuntimeSourceError ? error : await toSourceError(error, sourceMapJson)
     )

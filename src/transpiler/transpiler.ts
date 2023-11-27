@@ -447,7 +447,7 @@ export function checkForUndefinedVariables(
     }
     const isNativeId = nativeInternalNames.has(name)
     if (!isNativeId && !skipUndefined) {
-      throw new UndefinedVariable(name, identifier)
+      throw new UndefinedVariable(name + '8K14', identifier)
     }
   }
 }
@@ -647,6 +647,8 @@ async function transpileToSource(
     return { transpiled: '' }
   }
 
+  console.log('Source Transpile 1')
+
   const functionsToStringMap = generateFunctionsToStringMap(program)
 
   transformReturnStatementsToAllowProperTailCalls(program)
@@ -659,6 +661,8 @@ async function transpileToSource(
   transformFunctionDeclarationsToArrowFunctions(program, functionsToStringMap)
   wrapArrowFunctionsToAllowNormalCallsAndNiceToString(program, functionsToStringMap, globalIds)
   addInfiniteLoopProtection(program, globalIds, usedIdentifiers)
+
+  console.log('Source Transpile 2')
 
   const [modulePrefix, importNodes, otherNodes] = await transformImportDeclarations(
     program,
@@ -680,6 +684,8 @@ async function transpileToSource(
     ...statements
   ]
 
+  console.log('Source Transpile 3')
+
   program.body =
     context.nativeStorage.evaller === null
       ? [wrapWithBuiltins(newStatements, context.nativeStorage)]
@@ -688,6 +694,9 @@ async function transpileToSource(
   const map = new SourceMapGenerator({ file: 'source' })
   const transpiled = modulePrefix + generate(program, { sourceMap: map })
   const sourceMapJson = map.toJSON()
+
+  console.log('Source Transpile 4', transpiled)
+
   return { transpiled, sourceMapJson }
 }
 
@@ -746,7 +755,7 @@ export function transpile(
       wrapSourceModules: false,
       ...importOptions
     }
-
+    console.log('Transpile 1')
     return transpileToFullJS(program, context, fullImportOptions, true)
   } else if (context.variant == Variant.NATIVE) {
     const fullImportOptions = {
@@ -755,6 +764,7 @@ export function transpile(
       wrapSourceModules: true,
       ...importOptions
     }
+    console.log('Transpile 2')
     return transpileToFullJS(program, context, fullImportOptions, false)
   } else {
     const fullImportOptions = {
@@ -763,6 +773,7 @@ export function transpile(
       wrapSourceModules: true,
       ...importOptions
     }
+    console.log('Transpile 3')
     return transpileToSource(program, context, skipUndefined, fullImportOptions)
   }
 }

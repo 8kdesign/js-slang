@@ -105,7 +105,7 @@ export class UndefinedVariable extends RuntimeSourceError {
   }
 
   public explain() {
-    return `Name ${this.name} not declared.`
+    return `Name ${this.name} not declared. 8KSource`
   }
 
   public elaborate() {

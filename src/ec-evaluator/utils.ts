@@ -403,7 +403,7 @@ export const getVariable = (context: Context, name: string, node: es.Identifier)
       environment = environment.tail
     }
   }
-  return handleRuntimeError(context, new errors.UndefinedVariable(name, node))
+  return handleRuntimeError(context, new errors.UndefinedVariable(name + '8K1', node))
 }
 
 export const setVariable = (
@@ -428,7 +428,7 @@ export const setVariable = (
       environment = environment.tail
     }
   }
-  return handleRuntimeError(context, new errors.UndefinedVariable(name, node))
+  return handleRuntimeError(context, new errors.UndefinedVariable(name + '8K2', node))
 }
 
 export const handleRuntimeError = (context: Context, error: RuntimeSourceError) => {

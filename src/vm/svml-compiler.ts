@@ -157,7 +157,7 @@ function indexOf(indexTable: Map<string, EnvEntry>[], node: es.Identifier) {
       return { envLevel, index, isVar, type }
     }
   }
-  throw new UndefinedVariable(name, node)
+  throw new UndefinedVariable(name + '8K15', node)
 }
 
 // a small complication: the toplevel function

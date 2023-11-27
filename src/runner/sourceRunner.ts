@@ -155,15 +155,17 @@ async function runNative(
         transpileToLazy(transpiledProgram)
         break
     }
-
+    console.log('Section 1', transpiledProgram)
     ;({ transpiled, sourceMapJson } = await transpile(
       transpiledProgram,
       context,
       options.importOptions
     ))
     let value = await sandboxedEval(transpiled, getRequireProvider(context), context.nativeStorage)
+    console.log('Section 2')
 
     if (context.variant === Variant.LAZY) {
+      console.log('Section 2 Lazy')
       value = forceIt(value)
     }
 
@@ -177,6 +179,7 @@ async function runNative(
       value
     }
   } catch (error) {
+    console.log(error)
     const isDefaultVariant = options.variant === undefined || options.variant === Variant.DEFAULT
     if (isDefaultVariant && isPotentialInfiniteLoop(error)) {
       const detectedInfiniteLoop = await testForInfiniteLoop(
@@ -196,6 +199,7 @@ async function runNative(
       }
     }
     if (error instanceof RuntimeSourceError) {
+      console.log('Is Runtime Source Error')
       context.errors.push(error)
       if (error instanceof TimeoutError) {
         isPreviousCodeTimeoutError = true
@@ -203,6 +207,7 @@ async function runNative(
       return resolvedErrorPromise
     }
     if (error instanceof ExceptionError) {
+      console.log('Is Exception Error')
       // if we know the location of the error, just throw it
       if (error.location.start.line !== -1) {
         context.errors.push(error)
@@ -211,7 +216,7 @@ async function runNative(
         error = error.error // else we try to get the location from source map
       }
     }
-
+    console.log('Error Source 2')
     const sourceError = await toSourceError(error, sourceMapJson)
     context.errors.push(sourceError)
     return resolvedErrorPromise

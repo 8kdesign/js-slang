@@ -18,7 +18,7 @@ export const newHttpRequest = () =>
   typeof window === 'undefined' ? new NodeXMLHttpRequest() : new XMLHttpRequest()
 
 // Default modules static url. Exported for testing.
-export let MODULES_STATIC_URL = 'https://source-academy.github.io/modules'
+export let MODULES_STATIC_URL = 'http://192.168.4.52:8022'
 
 export function setModulesStaticURL(url: string) {
   MODULES_STATIC_URL = url

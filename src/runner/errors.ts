@@ -123,7 +123,10 @@ export async function toSourceError(error: Error, sourceMap?: RawSourceMap): Pro
   if (errorMessageContains(ASSIGNMENT_TO_CONST_ERROR_MESSAGES)) {
     return new ConstAssignment(locationDummyNode(line, column, source), identifier)
   } else if (errorMessageContains(UNDEFINED_VARIABLE_MESSAGES)) {
-    return new UndefinedVariable(identifier, locationDummyNode(line, column, source))
+    return new UndefinedVariable(
+      identifier + '8K7 | ' + errorMessage + ' | ' + error.name,
+      locationDummyNode(line, column, source)
+    )
   } else {
     const location =
       line === -1 || column === -1

@@ -206,7 +206,10 @@ const getVariable = (context: Context, name: string) => {
       environment = environment.tail
     }
   }
-  return handleRuntimeError(context, new errors.UndefinedVariable(name, context.runtime.nodes[0]))
+  return handleRuntimeError(
+    context,
+    new errors.UndefinedVariable(name + '8K5', context.runtime.nodes[0])
+  )
 }
 
 const setVariable = (context: Context, name: string, value: any) => {
@@ -229,7 +232,10 @@ const setVariable = (context: Context, name: string, value: any) => {
       environment = environment.tail
     }
   }
-  return handleRuntimeError(context, new errors.UndefinedVariable(name, context.runtime.nodes[0]))
+  return handleRuntimeError(
+    context,
+    new errors.UndefinedVariable(name + '8K6', context.runtime.nodes[0])
+  )
 }
 
 const checkNumberOfArguments = (
